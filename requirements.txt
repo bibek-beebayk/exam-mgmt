@@ -1,0 +1,21 @@
+Django
+# psycopg2-binary
+django-extensions
+django-versatileimagefield
+django-storages
+django-filter
+django-cors-headers
+whitenoise
+# django-ckeditor-5
+
+# dev
+ipdb
+ipython
+django-debug-toolbar
+django-extensions
+black
+gunicorn
+
+# prod
+gunicorn
+sentry-sdk[django]
