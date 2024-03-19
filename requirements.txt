@@ -7,6 +7,8 @@ django-filter
 django-cors-headers
 whitenoise
 django-ckeditor-5
+django-import-export
+pandas
 
 # dev
 ipdb

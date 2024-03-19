@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_ckeditor_5",
+    "import_export",
     "users",
     "exam",
 ]
@@ -234,3 +235,8 @@ CKEDITOR_5_CONFIGS = {
 #         }
 #     },
 }
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+from import_export.formats.base_formats import CSV, XLSX
+IMPORT_FORMATS = [CSV, XLSX]

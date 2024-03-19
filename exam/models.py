@@ -1,10 +1,12 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django.core.validators import FileExtensionValidator
 
 
 class Exam(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True, null=True)
+    file = models.FileField(blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["xlsx", "xls"])])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
