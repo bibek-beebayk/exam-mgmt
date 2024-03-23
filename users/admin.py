@@ -1,11 +1,15 @@
+from typing import Any
 from django.contrib import admin
-from .models import User, Interest
+from django.db.models.query import QuerySet
+from django.http import HttpRequest
+from .models import Student, Teacher, User, Interest
 from django.contrib.auth.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.db.models import Q
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class UserAdmin(BaseUserAdmin):
     change_user_password_template = None
     fieldsets = [
         ("Authentication", {
@@ -26,7 +30,6 @@ class UserAdmin(UserAdmin):
                 "address",
                 "phone",
                 "date_of_birth",
-                "is_student",
                 "date_joined"
             ]
         }),
@@ -46,14 +49,40 @@ class UserAdmin(UserAdmin):
             },
         ),
     )
-    # form = UserChangeForm
-    # add_form = UserCreationForm
-    # change_password_form = AdminPasswordChangeForm
-    # list_display = ("username", "email", "first_name", "last_name", "is_staff")
-    # list_filter = ("is_staff", "is_superuser", "is_active", "groups")
-    # search_fields = ("username", "first_name", "last_name", "email")
-    # ordering = ("username",)
-    # filter_horizontal = (
-    #     "groups",
-    #     "user_permissions",
-    # )
+
+    readonly_fields = ["is_superuser", "is_staff", "groups", "user_permissions"]
+    list_display = ["username", "full_name", "date_joined"]
+
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        obj.is_superuser = True
+        obj.is_staff = True
+        return super().save_model(request, obj, form, change)
+
+    def full_name(self, obj):
+        return obj.__str__()
+
+    def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:
+        student_ids = Student.objects.values_list("id", flat=True)
+        teacher_ids = Teacher.objects.values_list("id", flat=True)
+        return super().get_queryset(request).exclude(Q(id__in=student_ids) | Q(id__in=teacher_ids))
+
+
+@admin.register(Student)
+class StudentAdmin(UserAdmin):
+    
+    def get_queryset(self, request):
+        return Student.objects.all()
+
+
+@admin.register(Teacher)
+class TeacherAdmin(UserAdmin):
+    
+    readonly_fields = ["is_superuser", "is_staff", "user_permissions"]
+
+    def get_queryset(self, request):
+        return Teacher.objects.all()
+    
+    def save_model(self, request, obj, form, change):
+        obj.is_staff = True
+        obj.is_superuser = False
+        return obj.save()

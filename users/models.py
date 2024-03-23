@@ -14,4 +14,26 @@ class User(AbstractUser):
     address = models.CharField(max_length=500, blank=True, null=True)
     phone = models.CharField(max_length=16, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    is_student = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.middle_name or ""} {self.last_name}"
+
+
+class Stream(models.Model):
+    name = models.CharField(max_length=255)
+    short_name = models.CharField(max_length=32, blank=True, null=True)
+
+
+class Student(User):
+    faculty = models.ForeignKey(Stream, related_name="students", on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = "Student"
+        verbose_name_plural = "Students"
+
+
+class Teacher(User):
+    
+    class Meta:
+        verbose_name = "Teacher"
+        verbose_name_plural = "Teachers"
