@@ -244,3 +244,5 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 from import_export.formats.base_formats import CSV, XLSX
 
 IMPORT_FORMATS = [CSV, XLSX]
+
+LOGIN_URL = '/login/'  # Replace with your custom login URL

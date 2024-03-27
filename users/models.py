@@ -15,8 +15,12 @@ class User(AbstractUser):
     phone = models.CharField(max_length=16, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
 
-    def __str__(self) -> str:
+    @property
+    def full_name(self):
         return f"{self.first_name} {self.middle_name or ""} {self.last_name}"
+
+    def __str__(self) -> str:
+        return self.full_name
 
 
 class Stream(models.Model):

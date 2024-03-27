@@ -16,4 +16,5 @@ urlpatterns += [
     path("exam/<pk>/", exam_views.ExamDetailView.as_view()),
     path('login/', user_views.login_view, name='login'),
     path('logout/', user_views.logout_view, name='logout'),
+    path('profile/', user_views.profile_view, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

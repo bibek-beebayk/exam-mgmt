@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div
+    style="font-size: 32px; padding: 20px; font-weight: 600; background-color: antiquewhite; width: 100%; text-align: center;">
+    Profile
+</div>
+<div>
+    <h2>{{request.user.full_name}}</h2>
+</div>
+{% endblock %}
