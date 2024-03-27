@@ -14,6 +14,10 @@ def index_view(request):
     return render(request, "index.html", context)
 
 
+def homepage(request):
+    return render(request, "homepage.html", {})
+
+
 from copy import deepcopy
 class ExamDetailView(DetailView):
     model = Exam

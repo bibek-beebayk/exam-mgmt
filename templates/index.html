@@ -12,15 +12,10 @@
         <div class="test-item">
             <img src="https://masteringedu.prixa.net/static/frontend/img/learn.png" alt="">
             <h4>{{exam.title}}</h4>
-            <a href="http://localhost:8001/{{exam.id}}/">Trial</a>
+            <a href="{{request.path}}{{exam.id}}/">Trial</a>
         </div>
         {% endfor %}
 
-        <!-- <div class="test-item">
-            <img src="https://masteringedu.prixa.net/static/new-home/assets/image/logo.png" alt="">
-            <h4>asasdfasdf</h4>
-            <a href="">Trial</a>
-        </div> -->
     </div>
 </div>
 

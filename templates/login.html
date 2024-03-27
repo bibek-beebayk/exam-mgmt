@@ -1,0 +1,73 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="outer">
+        <img src="https://piacademy.edu.np/images/logo.png" alt="">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-div">
+                <!-- <label for="username">Username:</label> -->
+                <input type="text" name="username" required placeholder="Username">
+            </div>
+            <div class="input-div">
+                <!-- <label for="password">Password:</label> -->
+                <input type="password" name="password" required placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+
+<style>
+    .input-div{
+        input{
+            height: 30px;
+            width: 300px;
+            border: none;
+            outline: none;
+            padding: 4px;
+            border-radius: 5px;
+            box-shadow: inset;
+            background-color: #ef535032;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        button{
+            width: 50%;
+            height: 40px;
+            background-color: #ef5350;
+            border-radius: 10px;
+        }
+    }
+
+    .outer{
+        width: 100%;
+        height: 100vh;
+        /* background-color: #ef535054; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h2{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 28px;
+        }
+    }
+</style>
+</html>

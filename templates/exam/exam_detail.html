@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="font-size: 24px;">
+<div style="font-size: 32px; padding: 20px; font-weight: 600; background-color: antiquewhite; width: 100%; text-align: center;">
     {{object.title}}
 </div>
 
 <div class="questions-container">
     <form action="" method="post">
         {% csrf_token %}
+        <hr>
         {% for question in object.questions.all %}
     
-        <h5>{{question.number}}: {{question.description}}sdfasdf</h5>
+        <h5>{{question.number}}. {{question.description}}</h5>
         {% for answer in question.answers.all %}
         <div class="answers">
-            <input type="radio" name="{{question.id}}" value="{{answer.id}}"> {{answer.description}}
+            <input type="radio" name="{{question.id}}" value="{{answer.id}}" class="choices"> <span>{{answer.description}}</span>
         </div>
         {% endfor %}
+        <hr>
         {% endfor %}
 
         <div style="display: flex; justify-content: center; margin-top: 80px;">
@@ -38,12 +40,43 @@
 
     .answers {
         font-size: 16px;
+        display: flex;
+        /* flex-direction: column; */
+        /* justify-content: center; */
+        align-items: center;
+
+        /* input{
+            font-size: 25px;
+            color: red;
+        } */
+    }
+
+    .choices{
+        color: red;
+        margin: 5px;
+        height: 25px;
+        width: 25px;
+        line-height: 25px;
+        justify-content: center;
+        text-align: center;
     }
 
     .submit-button{
         background-color: red;
         padding: 8px 20px;
         border-radius: 20px;
+        border: none;
+        width: 200px;
+        height: 50px;
+        outline: none;
+        font-size: 20px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: rgb(211, 1, 1);
     }
     
 </style>
