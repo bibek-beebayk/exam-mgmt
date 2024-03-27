@@ -10,12 +10,9 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # Redirect to a success page or homepage
             return redirect("home")
         else:
-            # Return an 'invalid login' error message
             messages.error(request, "Invalid username or password.")
-    # If GET request or invalid form submission, render the login page with an empty form
     return render(request, "login.html")
 
 
