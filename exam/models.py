@@ -47,12 +47,55 @@ class ExamAttempt(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="exam_attempts")
     obtained_score = models.FloatField(blank=True, null=True)
     exam_data = models.JSONField()
+    result_data = models.JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    def calculate_obtained_marks(self):
-        pass
+    def calculate_obtained_score(self):
+        total = float(0)
+        for k, v in self.exam_data.items():
+            if v:
+                question = Question.objects.get(id=k)
+                correct_answer = question.answers.filter(is_correct=True).first()
+                if v == correct_answer.id:
+                    total += question.weightage
+        return total
+    
+    def get_result_data(self):
+        result = []
+        for k, v in self.exam_data.items():
+            obj = {}
+            question = Question.objects.get(id=k)
+            obj["question_id"] = k
+            obj["question"] = question.description
+            obj["question_number"] = question.number
+            obj["answer_id"] = v
+            if v:
+                answer = question.answers.filter(id=v).first().description
+            else:
+                answer = "N/A"
+            obj["answer"] = answer
+            correct_answer = question.answers.filter(is_correct=True).first()
+            obj["correct_answer_id"] = correct_answer.id
+            obj["correct_answer"] = correct_answer.description
+            obj["is_correct"] = True if v == correct_answer.id else False
+            result.append(obj)
+        return result
+    
+    @property
+    def attempted_questions_count(self):
+        count = 0
+        for k, v in self.exam_data.items():
+            if v:
+                count += 1
+        return count
+    
+    @property
+    def unattempted_questions_count(self):
+        count = self.exam.questions.count() - self.attempted_questions_count
+        return count
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.calculate_obtained_marks()
+            self.obtained_score = self.calculate_obtained_score()
+            self.result_data = self.get_result_data()
         return super().save(*args, **kwargs)

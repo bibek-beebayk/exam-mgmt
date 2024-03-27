@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div
+    style="font-size: 32px; padding: 20px; font-weight: 600; background-color: antiquewhite; width: 100%; text-align: center;">
+    Exam Summary ({{exam.title}})
+</div>
+
+<div class="questions-container">
+    <h3>Total Questions: {{exam.questions.count}}</h3>
+    <h3>Attempted Questions: {{attempt.attempted_questions_count}}</h3>
+    <h3>Unattempted Questions: {{attempt.unattempted_questions_count}}</h3>
+    <h3>Your Score: {{attempt.obtained_score}}</h3>
+</div>
+{% for obj in result %}
+<hr>
+<div class="questions-container">
+    <h3>{{obj.question_number}}. {{obj.question}}</h3>
+    <p><span style="font-weight: 600;">Your Answer:</span> {{obj.answer}}</p>
+    <p><span style="font-weight: 600;">Correct Answer:</span> {{obj.correct_answer}}</p>
+    <!-- <p>Correct: {{obj.is_correct}}</p> -->
+    {% if not obj.answer_id %}
+    <p style="color: gray; font-size: 20px;">Not Attempted</p>
+    {% elif obj.is_correct %}
+    <p style="color: green; font-size: 20px;">Correct Answer</p>
+    {% else %}
+    <p style="color: red; font-size: 20px;">Wrong Answer</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+<style>
+    .questions-container{
+        width: 70%;
+
+        h5{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            
+        }
+    }
+</style>
+{% endblock %}

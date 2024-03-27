@@ -44,4 +44,5 @@ class ExamDetailView(DetailView):
             exam=exam,
             exam_data = filtered_data
         )
-        return HttpResponse("Success")
+        context = {"result": exam_attempt.result_data, "exam": exam, "attempt": exam_attempt}
+        return render(request, "exam_summary.html", context)
