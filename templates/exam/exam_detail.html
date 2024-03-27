@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="font-size: 24px;">
+    {{object.title}}
+</div>
+
+<div class="questions-container">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for question in object.questions.all %}
+    
+        <h5>{{question.number}}: {{question.description}}sdfasdf</h5>
+        {% for answer in question.answers.all %}
+        <div class="answers">
+            <input type="radio" name="{{question.id}}" value="{{answer.id}}"> {{answer.description}}
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        <div style="display: flex; justify-content: center; margin-top: 80px;">
+            <input type="submit" class="submit-button">
+        </div>
+    </form>
+</div>
+
+<style>
+    .questions-container{
+        width: 70%;
+
+        h5{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            
+        }
+    }
+
+    .answers {
+        font-size: 16px;
+    }
+
+    .submit-button{
+        background-color: red;
+        padding: 8px 20px;
+        border-radius: 20px;
+    }
+    
+</style>
+
+{% endblock content %}

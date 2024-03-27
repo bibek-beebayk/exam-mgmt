@@ -1,8 +1,13 @@
 from django.contrib import admin
-from .models import Exam, Question, Answer
+from .models import Exam, ExamAttempt, Question, Answer
 from import_export.admin import ImportMixin
 from .resource import ExamResource, QuestionResource, AnswerResource
 import pandas as pd
+
+
+# admin.site.name = "Admin"
+# admin.site.site_title = "Admin"
+# admin.site.site_header = "Admin"
 
 
 @admin.register(Exam)
@@ -58,3 +63,7 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(ExamAttempt)
+class ExamAttemptAdmin(admin.ModelAdmin):
+    list_display = ["exam", "student", "timestamp"]

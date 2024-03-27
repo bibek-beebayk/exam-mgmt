@@ -23,9 +23,12 @@ class Stream(models.Model):
     name = models.CharField(max_length=255)
     short_name = models.CharField(max_length=32, blank=True, null=True)
 
+    def __str__(self) -> str:
+        return self.short_name if self.short_name else self.name
+
 
 class Student(User):
-    faculty = models.ForeignKey(Stream, related_name="students", on_delete=models.PROTECT)
+    stream = models.ForeignKey(Stream, related_name="students", on_delete=models.PROTECT, null=True)
 
     class Meta:
         verbose_name = "Student"

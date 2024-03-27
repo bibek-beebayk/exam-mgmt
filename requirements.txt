@@ -9,6 +9,7 @@ whitenoise
 django-ckeditor-5
 django-import-export
 pandas
+django-jazzmin
 
 # dev
 ipdb

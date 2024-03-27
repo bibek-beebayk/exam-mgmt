@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href=""><img src="https://piacademy.edu.np/images/logo.png" alt=""
+                    style="width: 150px;"></a>
+
+        </div>
+        <ul class="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="">Examination</a></li>
+            <li><a href="">Practice</a></li>
+            <li><a class="login" href="">Login</a></li>
+        </ul>
+    </div>
+
+    {% block content%}
+    {% endblock %}
+
+    <div class="footer-top">
+        <div class="ftl">
+            <img src="https://piacademy.edu.np/images/logo.png" alt="" style="width: 150px;">
+            <p>PI Academy is a platform that delivers individualized content based on each student’s needs and adapts instruction to maximize each student’s learning.</p>
+        </div>
+    </div>
+</body>
+
+<style>
+    .ftl{
+        display: flex;
+        flex-direction: column;
+
+        p{
+            width: 300px;
+            line-height: 25px;
+        }
+    }
+
+    .footer-top{
+        display: flex;
+        justify-content: center;
+        background-color: rgb(17, 17, 17);
+        margin-top: 60px;
+        width: 100%;
+        color: white;
+    }
+
+    body {
+        /* padding: 50px;
+         */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        /* width: 100%; */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .logo {
+        padding-left: 80px;
+    }
+
+    .navbar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 500;
+        /* padding-left: 2%;
+        padding-right: 2%; */
+        margin: 5px;
+    }
+
+    .menu {
+        display: flex;
+        direction: none;
+        list-style-type: none;
+        gap: 30px;
+        padding-right: 80px;
+    }
+
+    .login {
+        background-color: red;
+        padding: 8px 20px;
+        border-radius: 20px;
+    }
+</style>
+
+</html>

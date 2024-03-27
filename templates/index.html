@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="heading">
+    <h2>Exam Portal</h2>
+</div>
+
+<div class="exam-list" style="margin-top: 40px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Featured Tests</h2>
+    <div class="featured">
+        {% for exam in exams %}
+        <div class="test-item">
+            <img src="https://masteringedu.prixa.net/static/frontend/img/learn.png" alt="">
+            <h4>{{exam.title}}</h4>
+            <a href="http://localhost:8001/{{exam.id}}/">Trial</a>
+        </div>
+        {% endfor %}
+
+        <!-- <div class="test-item">
+            <img src="https://masteringedu.prixa.net/static/new-home/assets/image/logo.png" alt="">
+            <h4>asasdfasdf</h4>
+            <a href="">Trial</a>
+        </div> -->
+    </div>
+</div>
+
+<style>
+
+    .test-item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+
+        img{
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        a{
+            border: 1px solid red;
+            color: red;
+            border-radius: 20px;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+        }
+    }
+
+    .heading {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background-color: rgb(212, 212, 212);
+    }
+
+    .featured{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock %}
