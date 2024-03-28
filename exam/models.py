@@ -11,6 +11,7 @@ class Exam(models.Model):
     stream = models.ForeignKey(Stream, on_delete=models.PROTECT, related_name="exams")
     is_featured = models.BooleanField(default=False)
     file = models.FileField(blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["xlsx", "xls"])])
+    is_practice_test = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -46,6 +47,8 @@ class ExamAttempt(models.Model):
     student = models.ForeignKey(Student, blank=True, null=True, on_delete=models.SET_NULL, related_name="exam_attempts")
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="exam_attempts")
     obtained_score = models.FloatField(blank=True, null=True)
+    full_score = models.FloatField(blank=True, null=True)
+    time_taken = models.CharField(max_length=255, blank=True, null=True)
     exam_data = models.JSONField()
     result_data = models.JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -59,6 +62,26 @@ class ExamAttempt(models.Model):
                 if v == correct_answer.id:
                     total += question.weightage
         return total
+
+    def calculate_full_score(self):
+        total = float(0)
+        for k, v in self.exam_data.items():
+            question = Question.objects.get(id=k)
+            total += question.weightage
+        return total
+    
+    @property
+    def correct_answers_count(self):
+        count = 0
+        for obj in self.result_data:
+            if obj["is_correct"]:
+                count += 1
+        return count
+    
+    @property
+    def percentage(self):
+        val = (self.correct_answers_count/self.exam.questions.count()) * 100
+        return round(val)
     
     def get_result_data(self):
         result = []
@@ -96,6 +119,7 @@ class ExamAttempt(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            self.full_score = self.calculate_full_score()
             self.obtained_score = self.calculate_obtained_score()
             self.result_data = self.get_result_data()
         return super().save(*args, **kwargs)

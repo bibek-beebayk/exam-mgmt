@@ -43,7 +43,7 @@ class ExamAdmin(admin.ModelAdmin):
                         description=answer_text,
                         is_correct=is_correct
                     )
-            if not obj.title:
+            if not obj.title or obj.title == "":
                 obj.title = obj.file.name.split(".")[0].strip()
                 obj.save()
         else:

@@ -34,4 +34,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile_view(request):
-    return render(request, "user_profile.html", {})
+    student = request.user.student
+    context = {}
+    recent_exams = student.exam_attempts.order_by("-timestamp")
+    context["recent_exams"] = recent_exams
+    return render(request, "user_profile.html", context)

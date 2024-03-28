@@ -8,4 +8,90 @@
 <div>
     <h2>{{request.user.full_name}}</h2>
 </div>
+<!-- <div class="" style="display: flex; flex-direction: column;">
+    {{exam.timestamp}}
+    {{exam.exam.title}}
+    {{exam.obtained_score}}
+    {{exam.percentage}}
+    <a href="/exam-summary/{{exam.id}}/">View Summary</a>
+</div> -->
+<!-- <div>Exam History</div> -->
+<!-- <table>
+    <tr>
+
+        <th>DateTime</th>
+        <th>Exam</th>
+        <th>Obtained Score</th>
+        <th>Percentage</th>
+        <th>Actions</th>
+    </tr>
+    {% for exam in recent_exams %}
+    <tr>
+        <td>{{exam.timestamp}}</td>
+        <td>{{exam.exam.title}}</td>
+        <td>{{exam.obtained_score}}</td>
+        <td>{{exam.percentage}}</td>
+    </tr>
+    {% endfor %}
+</table> -->
+
+<h2>Exam History</h2>
+<div class="exam-history-container">
+    <div class="exam-history-row">
+        <h3>Date</h3>
+        <h3>Exam</h3>
+        <h3>Obtained Score</h3>
+        <h3>Percentage</h3>
+        <h3>Actions</h3>
+    </div>
+    {% for exam in recent_exams %}
+    <div class="exam-history-row">
+        <div>{{exam.timestamp | date}}</div>
+        <div>{{exam.exam.title}}</div>
+        <div>{{exam.obtained_score}}</div>
+        <div>{{exam.percentage}}%</div>
+        <div><a href="/exam-summary/{{exam.id}}/">View Summary</a></div>
+        
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .exam-history-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    .exam-history-row {
+        display: flex;
+        gap: 20px;
+        border-bottom: 1px solid black;
+        align-items: center;
+        /* justify-content: center; */
+
+        h3{
+            width: 200px;
+            text-align: center;
+        }
+
+        div{
+            width: 100%;
+            text-align: center;
+        }
+
+        a{
+            cursor: pointer;
+            text-align: center;
+            justify-self: center;
+        }
+
+        a:hover{
+            color: red;
+        }
+    }
+</style>
 {% endblock %}
