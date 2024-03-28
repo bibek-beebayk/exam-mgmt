@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
@@ -20,6 +20,7 @@ def index_view(request):
         exams = Exam.objects.exclude(is_practice_test=True)[:3]
     else:
         exams = Exam.objects.filter(stream=stream).exclude(is_practice_test=True)[:3]
+    context["free_exams"] = Exam.objects.filter(is_free=True)
     context["exams"] = exams
     return render(request, "index.html", context)
 
@@ -36,6 +37,7 @@ def practice_test_view(request):
     else:
         exams = Exam.objects.filter(stream=stream, is_practice_test=True)[:3]
     context["exams"] = exams
+    context["free_exams"] = Exam.objects.filter(is_free=True)
     return render(request, "index.html", context)
 
 
@@ -44,8 +46,15 @@ def homepage(request):
 
 
 from copy import deepcopy
+from django.contrib import messages
 class ExamDetailView(DetailView):
     model = Exam
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if not request.user.is_authenticated and not self.get_object().is_free:
+            messages.error(request, "You need to login first.")
+            return redirect("login")
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         exam = self.get_object()

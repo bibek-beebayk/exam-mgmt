@@ -15,7 +15,19 @@
             <a href="{{request.path}}{{exam.id}}/">Trial</a>
         </div>
         {% endfor %}
+    </div>
+</div>
 
+<div class="exam-list" style="margin-top: 40px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
+    <div class="featured">
+        {% for exam in free_exams %}
+        <div class="test-item">
+            <img src="https://masteringedu.prixa.net/static/frontend/img/learn.png" alt="">
+            <h4>{{exam.title}}</h4>
+            <a href="{{request.path}}{{exam.id}}/">Trial</a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
