@@ -61,10 +61,18 @@
         }, 1000);
     }
 
+    // Function to reset the form
+    function resetForm() {
+        var form = document.querySelector('form');
+        form.reset(); // Reset the form to clear selections
+    }
+
+
     // Initialize the timer when the page loads
     window.onload = function () {
         var timerDisplay = document.querySelector('#timer');
         startTimer(timerDisplay);
+        resetForm();
 
         var form = document.querySelector('form');
         form.addEventListener('submit', function(event) {

@@ -11,7 +11,30 @@ from users.models import Student
 
 def index_view(request):
     context = {}
-    exams = Exam.objects.all()[:3]
+    user = request.user
+    try:
+        stream = request.user.student.stream
+    except:
+        stream = None
+    if not stream:
+        exams = Exam.objects.exclude(is_practice_test=True)[:3]
+    else:
+        exams = Exam.objects.filter(stream=stream).exclude(is_practice_test=True)[:3]
+    context["exams"] = exams
+    return render(request, "index.html", context)
+
+
+def practice_test_view(request):
+    context = {}
+    user = request.user
+    try:
+        stream = request.user.student.stream
+    except:
+        stream = None
+    if not stream:
+        exams = Exam.objects.filter(is_practice_test=True)[:3]
+    else:
+        exams = Exam.objects.filter(stream=stream, is_practice_test=True)[:3]
     context["exams"] = exams
     return render(request, "index.html", context)
 
