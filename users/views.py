@@ -9,6 +9,15 @@ def login_view(request):
         password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            try:
+                student = user.student
+            except:
+                student = None
+            # import ipdb; ipdb.set_trace()
+            if not student:
+                messages.error(request, "You need to have a student account to login.")
+                # raise ValueError("You need to have a student account to login.")
+                return redirect("login")
             login(request, user)
             return redirect("home")
         else:
