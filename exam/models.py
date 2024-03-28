@@ -20,6 +20,19 @@ class Exam(models.Model):
         return self.title
     
 
+class LiveExam(models.Model):
+    exam = models.ForeignKey(Exam, related_name="live_exams", on_delete=models.CASCADE, help_text="Choose an existing exam or create a new one.")
+    schedule_date = models.DateField()
+    start_time = models.TimeField()
+    duration = models.IntegerField(help_text="Enter the exam duration in minutes.")
+    end_time = models.TimeField(blank=True, null=True, help_text="Leave it blank to let system determine automatically.")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.title
+    
+
 class Question(models.Model):
     exam = models.ForeignKey(Exam, related_name="questions", on_delete=models.CASCADE)
     number = models.IntegerField()
