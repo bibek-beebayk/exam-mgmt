@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Exam, ExamAttempt, Question, Answer
+from .models import Exam, ExamAttempt, LiveExam, Question, Answer
 from import_export.admin import ImportMixin
 from .resource import ExamResource, QuestionResource, AnswerResource
 import pandas as pd
@@ -50,6 +50,11 @@ class ExamAdmin(admin.ModelAdmin):
                 obj.save()
         else:
             self.message_user(request, "No file uploaded.")
+
+
+@admin.register(LiveExam)
+class LiveExamAdmin(admin.ModelAdmin):
+    list_display = ["exam", "starts_at", "duration", "ends_at", "status"]
 
 
 class AnswerInline(admin.TabularInline):

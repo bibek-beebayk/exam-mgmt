@@ -15,6 +15,7 @@ urlpatterns += [
     path("exam/", exam_views.index_view, name="index"),
     path("practice/", exam_views.practice_test_view, name="practice"),
     path("exam/<pk>/", exam_views.ExamDetailView.as_view()),
+    path("live-exam/<pk>/", exam_views.live_exam_view, name="live-exam"),
     path("practice/<pk>/", exam_views.ExamDetailView.as_view()),
     # path("exam-summary/<pk>/", exam_views.ExamSummaryView.as_view()),
     path("exam-summary/<pk>/", exam_views.exam_summary_view, name="exam-summary"),

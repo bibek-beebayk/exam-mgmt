@@ -1,6 +1,7 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from django.core.validators import FileExtensionValidator
+from django.utils import timezone
 
 from users.models import Stream, Student
 
@@ -22,15 +23,28 @@ class Exam(models.Model):
 
 class LiveExam(models.Model):
     exam = models.ForeignKey(Exam, related_name="live_exams", on_delete=models.CASCADE, help_text="Choose an existing exam or create a new one.")
-    schedule_date = models.DateField()
-    start_time = models.TimeField()
-    duration = models.IntegerField(help_text="Enter the exam duration in minutes.")
-    end_time = models.TimeField(blank=True, null=True, help_text="Leave it blank to let system determine automatically.")
+    # schedule_date = models.DateField()
+    starts_at = models.DateTimeField()
+    duration = models.IntegerField(help_text="Enter the exam duration in minutes.", verbose_name="Duration (Minutes)")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return self.title
+        return self.exam.title
+    
+    @property
+    def ends_at(self):
+        end_time = self.starts_at + timezone.timedelta(minutes=self.duration)
+        return end_time
+    
+    @property
+    def status(self):
+        if timezone.now() < self.starts_at:
+            return "Not Started"
+        elif timezone.now() > self.ends_at:
+            return "Ended"
+        else:
+            return "Ongoing"
     
 
 class Question(models.Model):
@@ -62,6 +76,7 @@ class ExamAttempt(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="exam_attempts")
     obtained_score = models.FloatField(blank=True, null=True)
     full_score = models.FloatField(blank=True, null=True)
+    live_exam = models.BooleanField(default=False)
     time_taken = models.CharField(max_length=255, blank=True, null=True)
     exam_data = models.JSONField()
     result_data = models.JSONField()

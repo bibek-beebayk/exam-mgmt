@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+    window.addEventListener('scroll', function () {
+        var header = document.querySelector('.heading');
+        var sticky = header.offsetTop;
+        if (window.pageYOffset > sticky) {
+            header.classList.add('fixed');
+        } else {
+            header.classList.remove('fixed');
+        }
+    });
+</script>
+
+<div class="heading">
+    Live Exam ({{object.exam.title}}) <span style="margin-left: 80px; font-size: 16px;">Remaining Time: </span><span
+        id="timer" style="font-size: 16px;"></span> <span style="margin-left: 80px; font-size: 16px;">Elapsed
+        Time:</span><span id="uptimer" style="font-size: 16px;"></span>
+    <span style="display: none;" id="endtime">{{object.ends_at}}</span>
+</div>
+
+<div class="questions-container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <hr>
+        {% for question in object.exam.questions.all %}
+
+        <h5>{{question.number}}. {{question.description}}</h5>
+        {% for answer in question.answers.all %}
+        <div class="answers">
+            <input type="radio" name="{{question.id}}" value="{{answer.id}}" class="choices">
+            <span>{{answer.description}}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        {% endfor %}
+
+        <div style="display: flex; justify-content: center; margin-top: 80px;">
+            <input type="submit" class="submit-button">
+        </div>
+    </form>
+</div>
+
+<script>
+    function startTimer(display) {
+        var seconds = 0, minutes = 0, hours = 0;
+        setInterval(function () {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes >= 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+
+            var hoursStr = hours < 10 ? "0" + hours : hours;
+            var minutesStr = minutes < 10 ? "0" + minutes : minutes;
+            var secondsStr = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = hoursStr + ":" + minutesStr + ":" + secondsStr;
+        }, 1000);
+    }
+
+    // Function to reset the form
+    function resetForm() {
+        var form = document.querySelector('form');
+        form.reset(); // Reset the form to clear selections
+    }
+
+    function startCountdown(endsAt, display) {
+        var endTime = new Date(endsAt).getTime();
+        setInterval(function () {
+            var now = new Date().getTime();
+            var distance = endTime - now;
+
+            if (distance <= 0) {
+                display.textContent = "00:00:00"; // Display 00:00:00 when countdown ends
+                return;
+            }
+
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            var hoursStr = hours < 10 ? "0" + hours : hours;
+            var minutesStr = minutes < 10 ? "0" + minutes : minutes;
+            var secondsStr = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = hoursStr + ":" + minutesStr + ":" + secondsStr;
+        }, 1000);
+    }
+
+    function parseMonthIndex(monthString) {
+        var months = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        return months.indexOf(monthString);
+    }
+
+    function parseDateTime(datetimeString) {
+        var dateTimeParts = datetimeString.split(', ');
+        var dateParts = dateTimeParts[0].split(' ');
+        var monthIndex = parseMonthIndex(dateParts[0]);
+        var day = parseInt(dateParts[1].replace(',', ''));
+        var year = parseInt(dateTimeParts[1]);
+        var timeParts = dateTimeParts[2].split(' ');
+        var time = timeParts[0];
+        var ampm = timeParts[1];
+        var hourMinute = time.split(':');
+        var hour = parseInt(hourMinute[0]);
+        if (ampm === 'p.m.' && hour !== 12) {
+            hour += 12;
+        }
+        var minute = parseInt(hourMinute[1]);
+
+        return new Date(year, monthIndex, day, hour, minute);
+    }
+    // Initialize the timer when the page loads
+    window.onload = function () {
+        var timerDisplay = document.querySelector('#timer');
+        var uptimerDisplay = document.querySelector('#uptimer');
+        var endTimeSpan = document.getElementById('endtime');
+        var endsAtString = endTimeSpan.textContent.trim();
+        var endsAt = parseDateTime(endsAtString)
+        // debugger
+        startCountdown(endsAt, timerDisplay);
+        startTimer(uptimerDisplay);
+
+        resetForm();
+
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            var elapsedTime = uptimerDisplay.textContent;
+            // Add the elapsed time as a hidden input field to the form
+            var elapsedTimeInput = document.createElement('input');
+            elapsedTimeInput.setAttribute('type', 'hidden');
+            elapsedTimeInput.setAttribute('name', 'elapsed_time');
+            elapsedTimeInput.setAttribute('value', elapsedTime);
+            form.appendChild(elapsedTimeInput);
+        });
+    };
+</script>
+
+<style>
+    #timer {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .heading {
+        font-size: 32px;
+        padding: 20px;
+        font-weight: 600;
+        background-color: antiquewhite;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .heading.fixed {
+        font-size: 24px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: aliceblue;
+        opacity: 100%;
+        z-index: 1;
+    }
+
+    .questions-container {
+        width: 70%;
+
+        h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+
+        }
+    }
+
+    .answers {
+        font-size: 16px;
+        display: flex;
+        /* flex-direction: column; */
+        /* justify-content: center; */
+        align-items: center;
+
+        /* input{
+            font-size: 25px;
+            color: red;
+        } */
+    }
+
+    .choices {
+        color: red;
+        margin: 5px;
+        height: 25px;
+        width: 25px;
+        line-height: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .submit-button {
+        background-color: red;
+        padding: 8px 20px;
+        border-radius: 20px;
+        border: none;
+        width: 200px;
+        height: 50px;
+        outline: none;
+        font-size: 20px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: rgb(211, 1, 1);
+    }
+</style>
+
+{% endblock content %}
