@@ -12,6 +12,7 @@ class Exam(models.Model):
     is_featured = models.BooleanField(default=False)
     file = models.FileField(blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["xlsx", "xls"])])
     is_practice_test = models.BooleanField(default=False)
+    is_free = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

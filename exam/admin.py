@@ -13,6 +13,8 @@ import pandas as pd
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
     # actions = ["import_from_excel"]
+    list_display = ["title", "stream", "is_free", "is_practice_test"]
+    list_filter = ["stream", "is_free", "is_practice_test"]
 
     def save_model(self, request, obj, form, change):
         if obj.pk:
