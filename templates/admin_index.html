@@ -1,0 +1,174 @@
+{% extends "admin/index.html" %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+{% block content %}
+<style>
+    .mcontainer {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .analytics-container {
+        width: 100%;
+        /* height: 80px; */
+        background-color: white;
+        margin: 0 4px;
+        border-radius: 8px;
+        box-shadow: rgba(60, 64, 67, 0.1) 0px 1px 2px 0px, rgba(60, 64, 67, 0.05) 0px 2px 6px 2px;
+        padding: 20px;
+    }
+
+    .main-container {
+        display: flex;
+    }
+
+    .analytics-data {
+        display: flex;
+    }
+
+    .table {
+        /* column-gap: 20px; */
+        row-gap: 2px;
+        width: 40%;
+    }
+
+    .label {
+        font-weight: 500;
+    }
+
+    /* .row {
+        border-bottom: 1px solid black;
+    } */
+
+    tr {
+        /* border-bottom: 1px solid black; */
+    }
+
+    .analytics-flex {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        gap: 10px;
+    }
+
+    .analytics-item {
+        width: 200px;
+        height: 100px;
+        background-color: white;
+        margin: 0 4px;
+        border-radius: 8px;
+        box-shadow: rgba(60, 64, 67, 0.1) 0px 1px 2px 0px, rgba(60, 64, 67, 0.05) 0px 2px 6px 2px;
+        padding: 5px 15px;
+        display: flex;
+        gap: 30px;
+        justify-content: space-between;
+        align-items: center;
+        color: dimgray;
+    }
+
+    .an-label {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .an-value {
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .icon {
+        font-size: 30px;
+    }
+</style>
+
+<div class="mcontainer">
+
+    <div class="analytics-flex">
+
+        <div class="analytics-item">
+            <div class="left">
+                <div class="an-label">
+                    Total Students
+                </div>
+                <div class="an-value">
+                    {{ users_count }}
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-users icon"></i>
+            </div>
+        </div>
+
+        <div class="analytics-item">
+            <div class="left">
+                <div class="an-label">
+                    Total Exams
+                </div>
+                <div class="an-value">
+                    {{ exams_count }}
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-file icon" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="analytics-item">
+            <div class="left">
+                <div class="an-label">
+                    Exam Attempts
+                </div>
+                <div class="an-value">
+                    {{ exam_attempts }}
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-file icon" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div class="analytics-item">
+            <div class="left">
+                <div class="an-label">
+                    New Students This Month
+                </div>
+                <div class="an-value">
+                    {{ month_new_students }}
+                </div>
+            </div>
+            <div>
+                <i class="fas fa-book icon" aria-hidden="true"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="analytics-container">
+        {{plt_div|safe}}
+    </div>
+    <!-- Bar Graph begins here
+
+    <div class="chart-wrap vertical">
+        <h2 class="title">Bar Chart HTML Example:  Using Only HTML And CSS</h2>
+        
+        <div class="grid">
+            <div class="bar" style="--bar-value:85%;" data-name="Your Blog" title="Your Blog 85%"></div>
+            <div class="bar" style="--bar-value:23%;" data-name="Medium" title="Medium 23%"></div>
+           <div class="bar" style="--bar-value:7%;" data-name="Tumblr" title="Tumblr 7%"></div>
+            <div class="bar" style="--bar-value:38%;" data-name="Facebook" title="Facebook 38%"></div>
+            <div class="bar" style="--bar-value:35%;" data-name="YouTube" title="YouTube 35%"></div>
+            <div class="bar" style="--bar-value:30%;" data-name="LinkedIn" title="LinkedIn 30%"></div>
+            <div class="bar" style="--bar-value:5%;" data-name="Twitter" title="Twitter 5%"></div>
+            <div class="bar" style="--bar-value:20%;" data-name="Other" title="Other 20%"></div>    
+        </div>
+      </div> -->
+    <div class="main-container">
+        {{ block.super }}</div>
+</div>
+
+{% endblock %}

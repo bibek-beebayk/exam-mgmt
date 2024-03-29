@@ -5,6 +5,8 @@ from django.conf import settings
 from exam import views as exam_views
 from users import views as user_views
 
+admin.AdminSite.index_template = "admin_index.html"
+
 admin.autodiscover()
 
 urlpatterns = [
