@@ -11,11 +11,13 @@
 <body>
 
     <div class="outer">
-        
+
+
+        <img src="https://piacademy.edu.np/images/logo.png" alt="">
         <!-- Toast Begin -->
         {% for message in messages %}
         <div class="toast"
-            style="color: white; background-color: red; height: 50px; display: flex; width: auto; justify-content: center; justify-self: center; align-items: center; padding: 10px;"
+            style="color: white; background-color: #ac143ab6; height: 20px; display: flex; width: 300px; justify-content: center; justify-self: center; align-items: center; padding: 10px; margin-top: 10px; border-radius: 5px;"
             role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-body">
                 {{ message }}
@@ -23,8 +25,6 @@
         </div>
         {% endfor %}
         <!-- Toast End -->
-
-        <img src="https://piacademy.edu.np/images/logo.png" alt="">
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
@@ -64,7 +64,7 @@
             padding: 4px;
             border-radius: 5px;
             box-shadow: inset;
-            background-color: #ef535032;
+            background-color: #ac143a2a;
         }
     }
 
@@ -75,10 +75,12 @@
         gap: 10px;
 
         button {
-            width: 50%;
+            width: 100%;
             height: 40px;
-            background-color: #ef5350;
+            background-color: #ac143a;;
             border-radius: 10px;
+            color: white;
+            font-size: 20px;
         }
     }
 
