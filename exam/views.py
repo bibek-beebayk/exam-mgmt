@@ -43,7 +43,10 @@ def practice_test_view(request):
 
 
 def homepage(request):
-    return render(request, "homepage.html", {})
+    context = {}
+    free_exams = Exam.objects.filter(is_free=True)[:3]
+    context["free_exams"] = free_exams
+    return render(request, "homepage.html", context)
 
 
 from copy import deepcopy

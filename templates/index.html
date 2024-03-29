@@ -5,6 +5,7 @@
     <h2>Exam Portal</h2>
 </div>
 
+{% if request.user.is_authenticated and live_exams %}
 <div class="exam-list" style="margin-top: 40px;">
     <!-- Toast Begin -->
     {% for message in messages %}
@@ -17,6 +18,7 @@
     </div>
     {% endfor %}
     <!-- Toast End -->
+
     <h2 style="text-align: center; margin-bottom: 30px;">Live Tests</h2>
     <div class="featured">
         {% for exam in live_exams %}
@@ -29,6 +31,7 @@
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
 <div class="exam-list" style="margin-top: 40px;">
     <h2 style="text-align: center; margin-bottom: 30px;">New Tests</h2>

@@ -13,7 +13,7 @@
     <div class="navbar">
         <div class="logo">
             <a href="/"><img src="https://piacademy.edu.np/images/logo.png" alt=""
-                    style="width: 150px;"></a>
+                    style="width: 100px;"></a>
 
         </div>
         <ul class="menu">
@@ -22,6 +22,7 @@
             <li><a href="/practice/">Practice</a></li>
             {% if not request.user.is_authenticated %}
             <li><a class="login" href="/login/">Login</a></li>
+            <!-- <li><a class="login" href="https://demo.piacademy.edu.np/wp/registration/">Register</a></li> -->
             {% else %}
             <li><a href="/profile/">Profile</a></li>
             <li><a class="login" href="/logout/">Logout</a></li>
@@ -104,14 +105,14 @@
     }
 
     .login {
-        background-color: red;
+        background-color: #AC143B;
         padding: 8px 20px;
         border-radius: 20px;
         color: white;
     }
 
     .login:hover{
-        background-color: rgb(211, 1, 1);
+        background-color: #8f1130;
     }
 </style>
 

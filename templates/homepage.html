@@ -1,8 +1,127 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>
-        <h2>This page is under development.</h2>
-        <a href="/exam/">Go to Exam Portal</a>
+<div class="hero-section">
+    <div class="hero-inner">
+        <h2>Welcome to PI Academy Exam Portal</h2>
+        <p>Prepare yourself for any type of exams with our specialized tests.</p>
+        <a class="registration-link" href="https://demo.piacademy.edu.np/wp/registration/">Register Now to Access
+            Personalized Tests</a>
+        <a href="#free-tests" style="color:aliceblue; margin-top: 80px; font-size: large;">Try Some Free Tests</a>
     </div>
+</div>
+
+
+
+<div class="exam-list" id="free-tests" style="margin-top: 40px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
+    <div class="featured">
+        {% for exam in free_exams %}
+        <div class="test-item">
+            <img src="https://masteringedu.prixa.net/static/frontend/img/learn.png" alt="">
+            <h4>{{exam.exam.title}}</h4>
+            <span style="margin-bottom: 5px;">{{exam.status}}</span>
+            <a href="/exam/{{exam.id}}">Trial</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .registration-link {
+        background-color: #AC143B;
+        padding: 12px 20px;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .registration-link:hover {
+        background-color: #8a112f;
+    }
+
+    .hero-section {
+        background-image: url("https://images.pexels.com/photos/5905522/pexels-photo-5905522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+        /* background-color: black; */
+        width: 100%;
+        object-fit: cover;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 600px;
+        /* padding: 0; */
+        margin-bottom: -20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-position: absolute;
+    }
+
+    .hero-inner {
+        background-color: rgba(0, 0, 0, 0.699);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            color: rgb(233, 233, 233);
+            font-size: 32px;
+        }
+
+        p {
+            color: rgb(233, 233, 233);
+            font-size: 18px;
+        }
+
+
+
+    }
+
+    .exam-list {
+        border: 1px solid rgb(182, 182, 182);
+        width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 6px -3px rgba(0, 0, 0, 0.52);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .test-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+
+        img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        a {
+            border: 1px solid red;
+            color: red;
+            border-radius: 20px;
+            padding: 10px;
+            width: 50px;
+            text-align: center;
+        }
+    }
+
+    .featured {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 {% endblock %}
