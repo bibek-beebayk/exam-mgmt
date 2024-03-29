@@ -5,35 +5,29 @@
     style="font-size: 32px; padding: 20px; font-weight: 600; background-color: antiquewhite; width: 100%; text-align: center;">
     Profile
 </div>
-<div>
-    <h2>{{request.user.full_name}}</h2>
-</div>
-<!-- <div class="" style="display: flex; flex-direction: column;">
-    {{exam.timestamp}}
-    {{exam.exam.title}}
-    {{exam.obtained_score}}
-    {{exam.percentage}}
-    <a href="/exam-summary/{{exam.id}}/">View Summary</a>
-</div> -->
-<!-- <div>Exam History</div> -->
-<!-- <table>
-    <tr>
 
-        <th>DateTime</th>
-        <th>Exam</th>
-        <th>Obtained Score</th>
-        <th>Percentage</th>
-        <th>Actions</th>
-    </tr>
-    {% for exam in recent_exams %}
-    <tr>
-        <td>{{exam.timestamp}}</td>
-        <td>{{exam.exam.title}}</td>
-        <td>{{exam.obtained_score}}</td>
-        <td>{{exam.percentage}}</td>
-    </tr>
-    {% endfor %}
-</table> -->
+<div class="overview-container">
+    <div class="overview-card">
+        <h3>Performance Overview</h3>
+        <div>
+            <p>Total Tests Taken: {{request.user.student.total_tests_taken}}</p>
+            <p>Average Test Score: {{request.user.student.average_score}}</p>
+            <p>Highest Score : {{request.user.student.highest_score}} ({{request.user.student.highest_scoring_exam}})</p>
+            <p>Lowest Score : {{request.user.student.lowest_score}} ({{request.user.student.lowest_scoring_exam}})</p>
+        </div>
+    </div>
+
+    <div class="overview-card">
+        <h3>Personal Information</h3>
+        <div>
+            <p>Name: {{request.user.full_name}}</p>
+            <p>Email: {{request.user.email}}</p>
+            <p>Address : {{request.user.address}}</p>
+            <p>Contact Number : {{request.user.phone}}</p>
+        </div>
+    </div>
+</div>
+
 
 <h2>Exam History</h2>
 <div class="exam-history-container">
@@ -51,12 +45,32 @@
         <div>{{exam.obtained_score}}</div>
         <div>{{exam.percentage}}%</div>
         <div><a href="/exam-summary/{{exam.id}}/">View Summary</a></div>
-        
     </div>
     {% endfor %}
 </div>
 
 <style>
+    .overview-container{
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        /* border: 1px solid red; */
+        /* border-radius: 10px; */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid black;
+        padding: 20px;
+        padding-bottom: 50px
+    }
+
+    .overview-card{
+        border: 1px solid rgba(0, 0, 0, 0.178);
+        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+        width: 30%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
     .exam-history-container {
         display: flex;
         flex-direction: column;
@@ -73,23 +87,23 @@
         align-items: center;
         /* justify-content: center; */
 
-        h3{
+        h3 {
             width: 200px;
             text-align: center;
         }
 
-        div{
+        div {
             width: 100%;
             text-align: center;
         }
 
-        a{
+        a {
             cursor: pointer;
             text-align: center;
             justify-self: center;
         }
 
-        a:hover{
+        a:hover {
             color: red;
         }
     }

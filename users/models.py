@@ -34,6 +34,35 @@ class Stream(models.Model):
 
 class Student(User):
     stream = models.ForeignKey(Stream, related_name="students", on_delete=models.PROTECT, null=True)
+    has_subscription = models.BooleanField(default=False)
+
+    @property
+    def total_tests_taken(self):
+        return self.exam_attempts.count() or 0
+    
+    @property
+    def highest_score(self):
+        return self.exam_attempts.order_by("-obtained_score").first().obtained_score or 0
+    
+
+    @property
+    def highest_scoring_exam(self):
+        return self.exam_attempts.order_by("-obtained_score").first().exam.title or "N/A"
+    
+    @property
+    def lowest_score(self):
+        return self.exam_attempts.order_by("obtained_score").first().obtained_score or 0
+    
+
+    @property
+    def lowest_scoring_exam(self):
+        return self.exam_attempts.order_by("obtained_score").first().exam.title or "N/A"
+    
+
+    @property
+    def average_score(self):
+        average_score = self.exam_attempts.aggregate(average=models.Avg(models.F("obtained_score")))["average"] or 0
+        return round(average_score, 2)
 
     class Meta:
         verbose_name = "Student"

@@ -7,12 +7,15 @@
 </div>
 
 <div class="questions-container">
-    <h3>Total Questions: {{exam.questions.count}}</h3>
-    <h3>Attempted Questions: {{attempt.attempted_questions_count}}</h3>
-    <h3>Unattempted Questions: {{attempt.unattempted_questions_count}}</h3>
-    <h3>Your Score: {{attempt.obtained_score}}</h3>
-    <h3>Percentage: {{attempt.percentage}}%</h3>
-    <h3>Time Spent: {{attempt.time_taken}}</h3>
+
+    <div class="card">
+        <h4>Total Questions: {{exam.questions.count}}</h4>
+        <h4>Attempted Questions: {{attempt.attempted_questions_count}}</h4>
+        <h4>Unattempted Questions: {{attempt.unattempted_questions_count}}</h4>
+        <h4>Your Score: {{attempt.obtained_score}}</h4>
+        <h4>Percentage: {{attempt.percentage}}%</h4>
+        <h4>Time Spent: {{attempt.time_taken}}</h4>
+    </div>
 </div>
 {% for obj in result %}
 <hr>
@@ -32,15 +35,25 @@
 {% endfor %}
 
 <style>
-    .questions-container{
+    .questions-container {
         width: 70%;
+        margin-top: 20px;
 
-        h5{
+        h5 {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 5px;
-            
+
         }
+    }
+
+    .card {
+        border: 1px solid rgba(0, 0, 0, 0.199);
+        padding: 20px;
+        /* margin: 10px; */
+        border-radius: 10px;
+        width: 30%;
+        box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.50);
     }
 </style>
 {% endblock %}
