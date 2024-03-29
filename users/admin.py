@@ -50,12 +50,18 @@ class UserAdmin(admin.ModelAdmin):
     #     ),
     # )
 
-    readonly_fields = ["is_superuser", "is_staff", "groups", "user_permissions"]
+    # readonly_fields = ["is_superuser", "is_staff", "groups", "user_permissions"]
     list_display = ["username", "full_name", "date_joined"]
 
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         obj.is_superuser = True
         obj.is_staff = True
+        password = request.POST.get("password")
+        try:
+            if not form.initial["password"] == password:
+                obj.set_password(password)
+        except:
+            obj.set_password(password)
         return super().save_model(request, obj, form, change)
 
     def full_name(self, obj):
@@ -112,6 +118,12 @@ class StudentAdmin(UserAdmin):
     def save_model(self, request, obj, form, change):
         obj.is_staff = False
         obj.is_superuser = False
+        password = request.POST.get("password")
+        try:
+            if not form.initial["password"] == password:
+                obj.set_password(password)
+        except:
+            obj.set_password(password)
         return obj.save()
 
 
@@ -126,4 +138,10 @@ class TeacherAdmin(UserAdmin):
     def save_model(self, request, obj, form, change):
         obj.is_staff = True
         obj.is_superuser = False
-        return obj.save()
+        password = request.POST.get("password")
+        try:
+            if not form.initial["password"] == password:
+                obj.set_password(password)
+        except:
+            obj.set_password(password)
+        return super().save_model(request, obj, form, change)
