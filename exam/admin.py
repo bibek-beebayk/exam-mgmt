@@ -4,10 +4,16 @@ from import_export.admin import ImportMixin
 from .resource import ExamResource, QuestionResource, AnswerResource
 import pandas as pd
 
+class ReadOnlyModelAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return False
 
-# admin.site.name = "Admin"
-# admin.site.site_title = "Admin"
-# admin.site.site_header = "Admin"
+    def changeform_view(self, request, object_id=None, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_save_and_continue"] = False
+        extra_context["show_save"] = False
+        extra_context["show_delete"] = False
+        return super().changeform_view(request, object_id, extra_context=extra_context)
 
 
 @admin.register(Exam)
@@ -72,5 +78,5 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 @admin.register(ExamAttempt)
-class ExamAttemptAdmin(admin.ModelAdmin):
+class ExamAttemptAdmin(ReadOnlyModelAdmin):
     list_display = ["exam", "student", "timestamp"]

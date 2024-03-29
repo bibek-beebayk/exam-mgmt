@@ -144,4 +144,4 @@ class TeacherAdmin(UserAdmin):
                 obj.set_password(password)
         except:
             obj.set_password(password)
-        return super().save_model(request, obj, form, change)
+        return obj.save()
