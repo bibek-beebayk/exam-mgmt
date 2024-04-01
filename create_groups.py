@@ -35,6 +35,9 @@ def create_admin_user():
         user = User.objects.create(
             username="admin",
             email="admin@admin.com",
+            is_superuser=True,
+            is_staff=True,
+            is_active=True
         )
         user.set_password("admin")
         user.save()
