@@ -1,5 +1,5 @@
 Django==4.2.10
-# psycopg2-binary
+psycopg2-binary
 django-extensions
 django-versatileimagefield
 django-storages
@@ -10,6 +10,8 @@ django-ckeditor-5
 django-import-export
 pandas
 django-jazzmin
+dj-database-url
+whitenoise[brotli]
 
 # dev
 ipdb
@@ -22,3 +24,4 @@ gunicorn
 # prod
 gunicorn
 sentry-sdk[django]
+uvicorn
