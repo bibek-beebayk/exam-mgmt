@@ -18,7 +18,7 @@ class User(AbstractUser):
 
     @property
     def full_name(self):
-        return f"{self.first_name} {self.middle_name or ""} {self.last_name}"
+        return f"{self.first_name} {self.middle_name or ''} {self.last_name}"
 
     def __str__(self) -> str:
         return self.full_name
