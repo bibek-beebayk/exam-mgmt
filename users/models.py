@@ -42,27 +42,42 @@ class Student(User):
     
     @property
     def highest_score(self):
-        return self.exam_attempts.order_by("-obtained_score").first().obtained_score or 0
+        try:
+            return self.exam_attempts.order_by("-obtained_score").first().obtained_score or 0
+        except:
+            return 0
     
 
     @property
     def highest_scoring_exam(self):
-        return self.exam_attempts.order_by("-obtained_score").first().exam.title or "N/A"
+        try:
+            return self.exam_attempts.order_by("-obtained_score").first().exam.title or "N/A"
+        except:
+            return "N/A"
     
     @property
     def lowest_score(self):
-        return self.exam_attempts.order_by("obtained_score").first().obtained_score or 0
+        try:
+            return self.exam_attempts.order_by("obtained_score").first().obtained_score or 0
+        except:
+            return 0
     
 
     @property
     def lowest_scoring_exam(self):
-        return self.exam_attempts.order_by("obtained_score").first().exam.title or "N/A"
+        try:
+            return self.exam_attempts.order_by("obtained_score").first().exam.title or "N/A"
+        except:
+            return "N/A"
     
 
     @property
     def average_score(self):
-        average_score = self.exam_attempts.aggregate(average=models.Avg(models.F("obtained_score")))["average"] or 0
-        return round(average_score, 2)
+        try:
+            average_score = self.exam_attempts.aggregate(average=models.Avg(models.F("obtained_score")))["average"] or 0
+            return round(average_score, 2)
+        except:
+            return float(0)
 
     class Meta:
         verbose_name = "Student"
