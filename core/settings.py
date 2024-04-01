@@ -8,9 +8,9 @@ SECRET_KEY = "django-insecure-8tfn6ebkdf76eo$**gdl5ix%px8!95cmsbc94dk748l(2#jm3v
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["erp-tunnel.kalodhunga.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["erp-tunnel.kalodhunga.com", "localhost", "127.0.0.1", "exam-management-production.up.railway.app"]
 
-CSRF_TRUSTED_ORIGINS = ["https://erp-tunnel.kalodhunga.com"]
+CSRF_TRUSTED_ORIGINS = ["https://erp-tunnel.kalodhunga.com", "https://exam-management-production.up.railway.app"]
 
 INSTALLED_APPS = [
     "jazzmin",
