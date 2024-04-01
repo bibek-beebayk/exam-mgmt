@@ -65,12 +65,24 @@ WSGI_APPLICATION = "core.wsgi.application"
 #     }
 # }
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgresql://postgres:postgres@localhost:5432/mysite',
+#         conn_max_age=600
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("PGDATABASE", "exam"),
+        "USER": os.environ.get("PGUSER", "postgres"),
+        "PASSWORD": os.environ.get("PGPASSWORD", ""),
+        "HOST": os.environ.get("PGHOST", ""),
+        "PORT": os.environ.get("PGPORT", ""),
+        "ATOMIC_REQUESTS": True,
+    }
 }
 
 # AUTH_PASSWORD_VALIDATORS = [
@@ -107,7 +119,7 @@ if not DEBUG:
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
