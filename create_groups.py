@@ -6,7 +6,7 @@ django.setup()
 from django.contrib.auth.models import Permission, Group
 from django.contrib.contenttypes.models import ContentType
 from exam.models import Exam, LiveExam, Question, Answer, ExamAttempt
-from users.models import Student, Stream
+from users.models import Student, Stream, User
 
 def create_groups():
     group_name = "teachers"
@@ -27,4 +27,17 @@ def create_groups():
             group.permissions.add(*permissions)
 
 
+def create_admin_user():
+    users = User.objects.filter(username="admin")
+    if users.exists():
+        return
+    else:
+        user = User.objects.create(
+            username="admin",
+            email="admin@admin.com",
+        )
+        user.set_password("admin")
+        user.save()
+
+create_admin_user()
 create_groups()
