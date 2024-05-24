@@ -21,20 +21,28 @@
     <form action="" method="post">
         {% csrf_token %}
         <hr>
-        {% for question in object.questions.all %}
-
-        <h5>{{question.number}}. {{question.description}}</h5>
-        {% for answer in question.answers.all %}
-        <div class="answers">
-            <input type="radio" name="{{question.id}}" value="{{answer.id}}" class="choices">
-            <span>{{answer.description}}</span>
+        <div id="questions-wrapper">
+            {% for question in object.questions.all %}
+            <div class="question-item" data-question-number="{{ forloop.counter }}">
+                <h5>{{question.number}}. {{question.description}}</h5>
+                {% for answer in question.answers.all %}
+                <div class="answers">
+                    <input type="radio" name="{{question.id}}" value="{{answer.id}}" class="choices">
+                    <span>{{answer.description}}</span>
+                </div>
+                {% endfor %}
+                <hr>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-        <hr>
-        {% endfor %}
 
-        <div style="display: flex; justify-content: center; margin-top: 80px;">
+        <!-- <div style="display: flex; justify-content: center; margin-top: 80px;">
             <input type="submit" class="submit-button">
+        </div> -->
+        <div style="display: flex; justify-content: center; margin-top: 80px; gap: 20px;">
+            <button type="button" id="prev-button" class="submit-button">Previous</button>
+            <input type="submit" class="submit-button">
+            <button type="button" id="next-button" class="submit-button">Next</button>
         </div>
     </form>
 </div>
@@ -67,6 +75,23 @@
         form.reset(); // Reset the form to clear selections
     }
 
+    function showPage(page, questionsPerPage, totalQuestions) {
+        var questions = document.querySelectorAll('.question-item');
+        var start = (page - 1) * questionsPerPage;
+        var end = start + questionsPerPage;
+        questions.forEach(function (question, index){
+            if (index >= start && index < end) {
+                question.style.display = 'block';
+            } else {
+                question.style.display = 'none';
+            }
+            console.log(question.style.display)
+        });
+
+        document.querySelector('#prev-button').disabled = page === 1;
+        document.querySelector('#next-button').disabled = page === Math.ceil(totalQuestions / questionsPerPage);
+    }
+
 
     // Initialize the timer when the page loads
     window.onload = function () {
@@ -83,6 +108,28 @@
             elapsedTimeInput.setAttribute('name', 'elapsed_time');
             elapsedTimeInput.setAttribute('value', elapsedTime);
             form.appendChild(elapsedTimeInput);
+        });
+
+        var currentPage = 1;
+        var questionsPerPage = 20;
+        var totalQuestions = 100;
+        var max_page = 
+        showPage(currentPage, questionsPerPage, totalQuestions);
+
+        var prevButton = document.querySelector('#prev-button')
+
+        prevButton.addEventListener('click', function () {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage, questionsPerPage, totalQuestions);
+            }
+        });
+
+        document.querySelector('#next-button').addEventListener('click', function () {
+            if (currentPage < Math.ceil(totalQuestions / questionsPerPage)) {
+                currentPage++;
+                showPage(currentPage, questionsPerPage, totalQuestions);
+            }
         });
     };
 </script>
