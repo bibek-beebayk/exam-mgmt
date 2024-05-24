@@ -47,6 +47,17 @@
     </form>
 </div>
 
+<div id="confirmation-popup" class="modal" style="display: none;">
+    <div class="modal-content">
+        <i class="bi bi-exclamation-triangle-fill warning-icon fa-md" style="color:red"></i>
+        <p>Make sure you have attempted all the questions before submitting the test.</p>
+        <div class="buttons">
+            <button id="confirm-yes">Submit</button>
+            <button id="confirm-no">Recheck</button>
+        </div>
+    </div>
+</div>
+
 <script>
     function startTimer(display) {
         var seconds = 0, minutes = 0, hours = 0;
@@ -79,7 +90,7 @@
         var questions = document.querySelectorAll('.question-item');
         var start = (page - 1) * questionsPerPage;
         var end = start + questionsPerPage;
-        questions.forEach(function (question, index){
+        questions.forEach(function (question, index) {
             if (index >= start && index < end) {
                 question.style.display = 'block';
             } else {
@@ -100,7 +111,13 @@
         resetForm();
 
         var form = document.querySelector('form');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            showConfirmationPopup(form);
+
+        });
+
+        function submitForm(form) {
             var elapsedTime = timerDisplay.textContent;
             // Add the elapsed time as a hidden input field to the form
             var elapsedTimeInput = document.createElement('input');
@@ -108,13 +125,31 @@
             elapsedTimeInput.setAttribute('name', 'elapsed_time');
             elapsedTimeInput.setAttribute('value', elapsedTime);
             form.appendChild(elapsedTimeInput);
-        });
+            form.submit(form);
+        }
+
+        function showConfirmationPopup(form) {
+            var popup = document.getElementById('confirmation-popup');
+            popup.style.display = 'flex';
+
+            var confirmYes = document.getElementById('confirm-yes');
+            var confirmNo = document.getElementById('confirm-no');
+
+            confirmYes.onclick = function () {
+                popup.style.display = 'none';
+                submitForm(form);
+            };
+
+            confirmNo.onclick = function () {
+                popup.style.display = 'none';
+            };
+        }
 
         var currentPage = 1;
         var questionsPerPage = 20;
         var totalQuestions = 100;
-        var max_page = 
-        showPage(currentPage, questionsPerPage, totalQuestions);
+        var max_page =
+            showPage(currentPage, questionsPerPage, totalQuestions);
 
         var prevButton = document.querySelector('#prev-button')
 
@@ -135,6 +170,63 @@
 </script>
 
 <style>
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .modal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        text-align: center;
+        align-items: center;
+    }
+
+    .modal-content p {
+        margin: 20px 0;
+    }
+
+    < !-- .modal-content .warning-icon {
+        font-size: 50px;
+    }
+
+    -->#confirm-yes,
+    #confirm-no {
+        width: 50%;
+        color: white;
+        font-weight: bold;
+        padding: 5px 20px;
+        border: none;
+    }
+
+    #confirm-yes {
+        margin-right: 30%;
+        background-color: #ff3a00;
+    }
+
+    #confirm-no {
+        background-color: #0085f9;
+    }
+
     #timer {
         font-size: 18px;
         font-weight: bold;
