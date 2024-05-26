@@ -12,12 +12,13 @@
         <div>
             <p>Total Tests Taken: {{request.user.student.total_tests_taken}}</p>
             <p>Average Test Score: {{request.user.student.average_score}}</p>
-            <p>Highest Score : {{request.user.student.highest_score}} ({{request.user.student.highest_scoring_exam}})</p>
+            <p>Highest Score : {{request.user.student.highest_score}} ({{request.user.student.highest_scoring_exam}})
+            </p>
             <p>Lowest Score : {{request.user.student.lowest_score}} ({{request.user.student.lowest_scoring_exam}})</p>
         </div>
     </div>
 
-    <div class="overview-card">
+    <div class="profile-card">
         <h3>Personal Information</h3>
         <div>
             <p>Name: {{request.user.full_name}}</p>
@@ -30,27 +31,68 @@
 
 
 <h2>Exam History</h2>
-<div class="exam-history-container">
-    <div class="exam-history-row">
-        <h3>Date</h3>
-        <h3>Exam</h3>
-        <h3>Obtained Score</h3>
-        <h3>Percentage</h3>
-        <h3>Actions</h3>
+
+{% if page_obj.object_list %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Date</th>
+            <th scope="col">Exam</th>
+            <th scope="col">Obtained Score</th>
+            <th scope="col">Percentage</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exam in page_obj.object_list %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{exam.timestamp | date}}</td>
+            <td>{{exam.exam.title}}</td>
+            <td>{{exam.obtained_score}}</td>
+            <td>{{exam.percentage}}</td>
+            <td><a href="/exam-summary/{{exam.id}}/">View Summary</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="paginator">
+    {%if page_obj.has_previous %} {# whether the previous page exists #}
+    <a href="?page={{page_obj.previous_page_number}}" class="page-links">
+        Previous </a> {# link to the prev page #}
+            {% endif %}
+            <span><strong>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</strong> </span> {# the current page number #}
+
+            {%if page_obj.has_next %} {# whether the next page exists #}
+            <a href="?page={{page_obj.next_page_number}}" class="page-links">Next</a> {# link to the next page #}
+            {% endif %}
     </div>
-    {% for exam in recent_exams %}
-    <div class="exam-history-row">
-        <div>{{exam.timestamp | date}}</div>
-        <div>{{exam.exam.title}}</div>
-        <div>{{exam.obtained_score}}</div>
-        <div>{{exam.percentage}}%</div>
-        <div><a href="/exam-summary/{{exam.id}}/">View Summary</a></div>
-    </div>
-    {% endfor %}
+{% else %}
+<div>
+    Please attempt at least one exam to view history.
 </div>
+{% endif %}
+
 
 <style>
-    .overview-container{
+    .paginator{
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+    .page-links{
+        :hover{
+            color: blue;
+        }
+    }
+    .table {
+        width: 80%;
+        margin-top: 20px;
+    }
+
+    .overview-container {
         display: flex;
         justify-content: space-around;
         width: 80%;
@@ -63,9 +105,10 @@
         padding-bottom: 50px
     }
 
-    .overview-card{
+    .overview-card,
+    .profile-card {
         border: 1px solid rgba(0, 0, 0, 0.178);
-        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
         width: 30%;
         padding: 20px;
         border-radius: 10px;
@@ -105,6 +148,17 @@
 
         a:hover {
             color: red;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .profile-card {
+            display: none;
+        }
+
+        .overview-card,
+        .profile-card {
+            width: 80%;
         }
     }
 </style>

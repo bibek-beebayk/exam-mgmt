@@ -20,7 +20,7 @@
 {% for obj in result %}
 <hr>
 <div class="questions-container">
-    <h3>{{obj.question_number}}. {{obj.question}}</h3>
+    <h3 style="font-size: 20px;">{{obj.question_number}}. {{obj.question}}</h3>
     <p><span style="font-weight: 600;">Your Answer:</span> {{obj.answer}}</p>
     <p><span style="font-weight: 600;">Correct Answer:</span> {{obj.correct_answer}}</p>
     <!-- <p>Correct: {{obj.is_correct}}</p> -->
@@ -45,6 +45,10 @@
             margin-bottom: 5px;
 
         }
+
+        h4{
+            font-size: 18px;
+        }
     }
 
     .card {
@@ -54,6 +58,7 @@
         border-radius: 10px;
         width: 30%;
         box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.50);
+        font-size: 15px;
     }
 </style>
 {% endblock %}
