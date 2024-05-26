@@ -23,7 +23,8 @@
     <div class="featured">
         {% for exam in live_exams %}
         <div class="test-item">
-            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="">
             <h4>{{exam.exam.title}}</h4>
             <span style="margin-bottom: 5px;">{{exam.status}}</span>
             <a href="/live-exam/{{exam.id}}">Take Exam</a>
@@ -33,47 +34,52 @@
 </div>
 {% endif %}
 
+{% if exams %}
 <div class="exam-list" style="margin-top: 40px;">
     <h2 style="text-align: center; margin-bottom: 30px;">New Tests</h2>
     <div class="featured">
         {% for exam in exams %}
         <div class="test-item">
-            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="">
             <h4>{{exam.title}}</h4>
             <a href="{{request.path}}{{exam.id}}/">Take Exam</a>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
+{% if free_exams %}
 <div class="exam-list" style="margin-top: 40px;">
     <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
     <div class="featured">
         {% for exam in free_exams %}
         <div class="test-item">
-            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="">
             <h4>{{exam.title}}</h4>
             <a href="{{request.path}}{{exam.id}}/">Take Exam</a>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
 <style>
-
-    .exam-list{
+    .exam-list {
         border: 1px solid rgb(182, 182, 182);
         width: 80%;
         padding: 10px;
         border-radius: 10px;
-        box-shadow: 5px 5px 6px -3px rgba(0,0,0,0.52);
+        box-shadow: 5px 5px 6px -3px rgba(0, 0, 0, 0.52);
         display: flex;
         flex-direction: column;
         align-items: center;
 
     }
 
-    .test-item{
+    .test-item {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -81,14 +87,14 @@
         border-radius: 10px;
         padding: 5px;
 
-        img{
+        img {
             width: 250px;
             height: 250px;
             object-fit: cover;
             object-position: center;
         }
 
-        a{
+        a {
             border: 1px solid red;
             color: red;
             border-radius: 20px;
@@ -107,7 +113,7 @@
         background-color: rgb(212, 212, 212);
     }
 
-    .featured{
+    .featured {
         display: flex;
         flex-wrap: wrap;
         gap: 40px;
