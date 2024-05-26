@@ -12,8 +12,7 @@
 <body>
     <div class="navbar">
         <div class="logo">
-            <a href="/"><img src="https://piacademy.edu.np/images/logo.png" alt=""
-                    style="width: 100px;"></a>
+            <a href="/"><img src="https://piacademy.edu.np/images/logo.png" alt="" style="width: 100px;"></a>
 
         </div>
         <ul class="menu">
@@ -22,6 +21,7 @@
             <li><a href="/practice/">Practice</a></li>
             {% if not request.user.is_authenticated %}
             <li><a class="login" href="/login/">Login</a></li>
+            <li><a class="login" href="https://demo.piacademy.edu.np/wp/registration/">Register</a></li>
             <!-- <li><a class="login" href="https://demo.piacademy.edu.np/wp/registration/">Register</a></li> -->
             {% else %}
             <li><a href="/profile/">Profile</a></li>
@@ -36,29 +36,61 @@
     <div class="footer-top">
         <div class="ftl">
             <img src="https://piacademy.edu.np/images/logo.png" alt="" style="width: 150px;">
-            <p>PI Academy is a platform that delivers individualized content based on each student’s needs and adapts instruction to maximize each student’s learning.</p>
+            <p>PI Academy is a platform that delivers individualized content based on each student’s needs and adapts
+                instruction to maximize each student’s learning.</p>
+        </div>
+        <div class="ftl">
+            <h3 style="margin-bottom: 30px;">Quick Links</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 5px;">
+                <a class="footer-link" href="/home/">Home</a>
+                <a class="footer-link" href="https://demo.piacademy.edu.np/wp/contact-us/"
+                     target="_blank">Contact Us</a>
+            </div>
+        </div>
+        <div class="ftl">
+            <h3 style="margin-bottom: 30px;">Contact Info</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 5px;">
+                Don’t hesitate to contact and feel free to reach us ! <br>
+                <p>Mail: <a class="footer-link" href="mailto:contact@piacademy.edu.np"
+                        target="_blank">contact@piacademy.edu.np</a><br>
+                    Phone: <a href="tel:+977 014260880" class="footer-link" target="_blank">+977
+                        014260880</a><br>
+                    Location: <a href="https://maps.app.goo.gl/tWfXsbARpEnvZiRZA" class="footer-link"
+                        target="_blank">Maitighar, Kathmandu</a>
+                </p>
+            </div>
         </div>
     </div>
 </body>
 
 <style>
-    .ftl{
+    .footer-link {
+        color: rgb(255, 255, 255);
+        font-weight: 500;
+    }
+
+    .footer-link:hover{
+        color: #c0a9af;
+    }
+
+    .ftl {
         display: flex;
         flex-direction: column;
 
-        p{
+        p {
             width: 300px;
             line-height: 25px;
         }
     }
 
-    .footer-top{
+    .footer-top {
         display: flex;
-        justify-content: center;
-        background-color: rgb(17, 17, 17);
+        justify-content: space-evenly;
+        background-color: #004583;
         margin-top: 60px;
         width: 100%;
         color: white;
+        flex-wrap: wrap;
     }
 
     body {
@@ -111,7 +143,7 @@
         color: white;
     }
 
-    .login:hover{
+    .login:hover {
         background-color: #8f1130;
     }
 </style>
