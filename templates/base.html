@@ -28,6 +28,24 @@
             <li><a class="login" href="/logout/">Logout</a></li>
             {% endif %}
         </ul>
+
+        <button class="menu-button" id="menu-button">
+            <!-- <i class="fas fa-bars" style="font-size: 32px; color: white;"> -->Menu
+        </button>
+
+        <ul class="mobile-menu" id="mobile-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/exam/">Examination</a></li>
+            <li><a href="/practice/">Practice</a></li>
+            {% if not request.user.is_authenticated %}
+            <li><a class="login" href="/login/">Login</a></li>
+            <li><a class="login" href="https://demo.piacademy.edu.np/wp/registration/">Register</a></li>
+            {% else %}
+            <li><a href="/profile/">Profile</a></li>
+            <li><a href="/logout/">Logout</a></li>
+            {% endif %}
+        </ul>
+
     </div>
 
     {% block content%}
@@ -43,8 +61,8 @@
             <h3 style="margin-bottom: 30px;">Quick Links</h3>
             <div style="display: flex; flex-direction: column; gap: 10px; padding-left: 5px;">
                 <a class="footer-link" href="/home/">Home</a>
-                <a class="footer-link" href="https://demo.piacademy.edu.np/wp/contact-us/"
-                     target="_blank">Contact Us</a>
+                <a class="footer-link" href="https://demo.piacademy.edu.np/wp/contact-us/" target="_blank">Contact
+                    Us</a>
             </div>
         </div>
         <div class="ftl">
@@ -69,7 +87,7 @@
         font-weight: 500;
     }
 
-    .footer-link:hover{
+    .footer-link:hover {
         color: #c0a9af;
     }
 
@@ -132,9 +150,12 @@
         background-color: white;
     }
 
+    .navbar-mobile {
+        display: hidden;
+    }
+
     .menu {
         display: flex;
-        direction: none;
         list-style-type: none;
         gap: 30px;
         padding-right: 80px;
@@ -150,6 +171,63 @@
     .login:hover {
         background-color: #8f1130;
     }
+
+    .menu-button {
+        display: none;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        appearance: none;
+        background: none;
+        border: none;
+        font-size: large;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 50px;
+        right: 0;
+        /* display: flex; */
+        flex-direction: column;
+        list-style-type: none;
+        gap: 30px;
+        padding-right: 80px;
+        padding-bottom: 30px;
+        padding-top: 20px;
+        background-color: white;
+        border-radius: 10px;
+        opacity: 0.8;
+    }
+
+    @media screen and (max-width: 800px) {
+        .navbar {
+            justify-content: space-between;
+            padding-right: 80px;
+            /* border-radius: 10px; */
+        }
+
+        .menu-button {
+            display: inline;
+        }
+
+        .menu {
+            display: none;
+            /* border-radius: 10px; */
+        }
+    }
 </style>
+
+<script>
+    var menuButton = document.getElementById("menu-button")
+    var mobileMenu = document.getElementById("mobile-menu")
+    menuButton.addEventListener('click', function () {
+        if (mobileMenu.style.display == 'none') {
+            mobileMenu.style.display = 'flex';
+        } else {
+            mobileMenu.style.display = 'none';
+        }
+    });
+</script>
 
 </html>
