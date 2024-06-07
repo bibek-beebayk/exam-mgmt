@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +41,7 @@
         width: 100%;
         color: white;
         flex-wrap: wrap;
+        padding-top: 10px;
     }
 
     body {
@@ -150,7 +154,7 @@
 <body>
     <div class="navbar">
         <div class="logo">
-            <a href="/"><img src="https://piacademy.edu.np/images/logo.png" alt="" style="width: 100px;"></a>
+            <a href="/"><img src="{% static 'images/logo.png' %}" alt="" style="width: 100px;"></a>
 
         </div>
         <ul class="menu">
@@ -191,7 +195,7 @@
 
     <div class="footer-top">
         <div class="ftl">
-            <img src="https://piacademy.edu.np/images/logo.png" alt="" style="width: 150px;">
+            <img src="{% static 'images/logo.png' %}" alt="" style="width: 150px;">
             <p>PI Academy is a platform that delivers individualized content based on each student’s needs and adapts
                 instruction to maximize each student’s learning.</p>
         </div>

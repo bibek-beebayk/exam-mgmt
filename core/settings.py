@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-8tfn6ebkdf76eo$**gdl5ix%px8!95cmsbc94dk748l(2#jm3v"
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["erp-tunnel.kalodhunga.com", "localhost", "127.0.0.1", "exam-management-production.up.railway.app", "onlinepiacademy.com"]
 
@@ -112,6 +112,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles")]
 
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
