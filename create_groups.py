@@ -27,20 +27,20 @@ def create_groups():
             group.permissions.add(*permissions)
 
 
-def create_admin_user():
-    users = User.objects.filter(username="admin")
-    if users.exists():
-        return
-    else:
-        user = User.objects.create(
-            username="admin",
-            email="admin@admin.com",
-            is_superuser=True,
-            is_staff=True,
-            is_active=True
-        )
-        user.set_password("admin")
-        user.save()
+# def create_admin_user():
+#     users = User.objects.filter(username="admin")
+#     if users.exists():
+#         return
+#     else:
+#         user = User.objects.create(
+#             username="admin",
+#             email="admin@admin.com",
+#             is_superuser=True,
+#             is_staff=True,
+#             is_active=True
+#         )
+#         user.set_password("admin")
+#         user.save()
 
-create_admin_user()
+# create_admin_user()
 create_groups()
