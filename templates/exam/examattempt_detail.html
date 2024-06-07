@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .questions-container {
+        width: 70%;
+
+        h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+
+        }
+    }
+</style>
 <div
     style="font-size: 32px; padding: 20px; font-weight: 600; background-color: antiquewhite; width: 100%; text-align: center;">
     Exam Summary ({{exam.title}})
@@ -30,17 +42,4 @@
     {% endif %}
 </div>
 {% endfor %}
-
-<style>
-    .questions-container{
-        width: 70%;
-
-        h5{
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            
-        }
-    }
-</style>
 {% endblock %}

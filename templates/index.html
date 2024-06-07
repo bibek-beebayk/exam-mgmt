@@ -1,6 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<style>
+    .exam-list {
+        border: 1px solid rgb(182, 182, 182);
+        width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 5px 5px 6px -3px rgba(0, 0, 0, 0.52);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .test-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+
+        img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        a {
+            border: 1px solid red;
+            color: red;
+            border-radius: 20px;
+            padding: 10px;
+            width: auto;
+            text-align: center;
+        }
+    }
+
+    .heading {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background-color: rgb(212, 212, 212);
+    }
+
+    .featured {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 <div class="heading">
     <h2>Exam Portal</h2>
 </div>
@@ -66,59 +122,4 @@
 </div>
 {% endif %}
 
-<style>
-    .exam-list {
-        border: 1px solid rgb(182, 182, 182);
-        width: 80%;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 5px 5px 6px -3px rgba(0, 0, 0, 0.52);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-    }
-
-    .test-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 5px;
-
-        img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        a {
-            border: 1px solid red;
-            color: red;
-            border-radius: 20px;
-            padding: 10px;
-            width: auto;
-            text-align: center;
-        }
-    }
-
-    .heading {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        background-color: rgb(212, 212, 212);
-    }
-
-    .featured {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
 {% endblock %}

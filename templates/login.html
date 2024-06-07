@@ -8,52 +8,6 @@
     <title>Login</title>
 </head>
 
-<body>
-
-    <div class="outer">
-
-
-        <img src="https://piacademy.edu.np/images/logo.png" alt="">
-        <!-- Toast Begin -->
-        {% for message in messages %}
-        <div class="toast"
-            style="color: white; background-color: #ac143ab6; height: 20px; display: flex; width: 300px; justify-content: center; justify-self: center; align-items: center; padding: 10px; margin-top: 10px; border-radius: 5px;"
-            role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body">
-                {{ message }}
-            </div>
-        </div>
-        {% endfor %}
-        <!-- Toast End -->
-        <h2>Login</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="input-div">
-                <!-- <label for="username">Username:</label> -->
-                <input type="text" name="username" required placeholder="Username">
-            </div>
-            <div class="input-div">
-                <!-- <label for="password">Password:</label> -->
-                <input type="password" name="password" required placeholder="Password">
-            </div>
-            <button type="submit">Login</button>
-        </form>
-    </div>
-</body>
-
-<script>
-    // Show the toast
-    document.addEventListener('DOMContentLoaded', function () {
-        var toasts = document.querySelectorAll('.toast');
-        toasts.forEach(function (toast) {
-            toast.classList.add('show');
-            setTimeout(function () {
-                toast.classList.remove('show');
-            }, 3000); // Hide toast after 3 seconds
-        });
-    });
-</script>
-
 <style>
     .input-div {
         input {
@@ -99,5 +53,51 @@
         }
     }
 </style>
+
+<body>
+
+    <div class="outer">
+
+
+        <img src="https://piacademy.edu.np/images/logo.png" alt="">
+        <!-- Toast Begin -->
+        {% for message in messages %}
+        <div class="toast"
+            style="color: white; background-color: #ac143ab6; height: 20px; display: flex; width: 300px; justify-content: center; justify-self: center; align-items: center; padding: 10px; margin-top: 10px; border-radius: 5px;"
+            role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Toast End -->
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-div">
+                <!-- <label for="username">Username:</label> -->
+                <input type="text" name="username" required placeholder="Username">
+            </div>
+            <div class="input-div">
+                <!-- <label for="password">Password:</label> -->
+                <input type="password" name="password" required placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    // Show the toast
+    document.addEventListener('DOMContentLoaded', function () {
+        var toasts = document.querySelectorAll('.toast');
+        toasts.forEach(function (toast) {
+            toast.classList.add('show');
+            setTimeout(function () {
+                toast.classList.remove('show');
+            }, 3000); // Hide toast after 3 seconds
+        });
+    });
+</script>
 
 </html>

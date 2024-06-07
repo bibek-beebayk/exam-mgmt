@@ -1,34 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="hero-section">
-    <div class="hero-inner">
-        <h2>Welcome to PI Academy Exam Portal</h2>
-        <p>Prepare yourself for any type of exams with our specialized tests.</p>
-        {% if not request.user.is_authenticated %}
-        <a class="registration-link" href="https://demo.piacademy.edu.np/wp/registration/" target="_blank">Register Now to Access
-            Personalized Tests</a>
-        {% endif %}
-        <a href="#free-tests" style="color:aliceblue; margin-top: 80px; font-size: large;">Try Some Free Tests</a>
-    </div>
-</div>
-
-
-
-<div class="exam-list" id="free-tests" style="margin-top: 40px;">
-    <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
-    <div class="featured">
-        {% for exam in free_exams %}
-        <div class="test-item">
-            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
-            <h4>{{exam.title}}</h4>
-            <span style="margin-bottom: 5px;">{{exam.status}}</span>
-            <a href="/exam/{{exam.id}}">Take Exam</a>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
 <style>
     .registration-link {
         background-color: #AC143B;
@@ -126,4 +98,33 @@
         align-items: center;
     }
 </style>
+
+<div class="hero-section">
+    <div class="hero-inner">
+        <h2>Welcome to PI Academy Exam Portal</h2>
+        <p>Prepare yourself for any type of exams with our specialized tests.</p>
+        {% if not request.user.is_authenticated %}
+        <a class="registration-link" href="https://demo.piacademy.edu.np/wp/registration/" target="_blank">Register Now to Access
+            Personalized Tests</a>
+        {% endif %}
+        <a href="#free-tests" style="color:aliceblue; margin-top: 80px; font-size: large;">Try Some Free Tests</a>
+    </div>
+</div>
+
+
+
+<div class="exam-list" id="free-tests" style="margin-top: 40px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
+    <div class="featured">
+        {% for exam in free_exams %}
+        <div class="test-item">
+            <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            <h4>{{exam.title}}</h4>
+            <span style="margin-bottom: 5px;">{{exam.status}}</span>
+            <a href="/exam/{{exam.id}}">Take Exam</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
