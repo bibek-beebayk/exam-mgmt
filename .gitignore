@@ -9,7 +9,6 @@ media/
 static/
 *temp.*
 *.sql
-*.png
 *.dot
 tunnel.txt
 *.pem*
