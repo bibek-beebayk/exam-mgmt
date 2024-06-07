@@ -111,8 +111,7 @@
     </div>
 </div>
 
-
-
+{% if free exams %}
 <div class="exam-list" id="free-tests" style="margin-top: 40px;">
     <h2 style="text-align: center; margin-bottom: 30px;">Free Tests</h2>
     <div class="featured">
@@ -126,5 +125,10 @@
         {% endfor %}
     </div>
 </div>
+{% else %}
+<div class="exam-list">
+    There are no tests right now.
+</div>
+{% endif %}
 
 {% endblock %}
