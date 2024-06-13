@@ -12,6 +12,7 @@ pandas
 django-jazzmin
 dj-database-url
 whitenoise[brotli]
+openpyxl
 
 # dev
 ipdb
